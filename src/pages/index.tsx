@@ -6,6 +6,8 @@ import { convertDuration } from '../utils/convertDuration';
 import style from './home.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useContext } from 'react';
+import { PlayerContext } from '../context/PlayerContext';
 
 //Tipagem TypeScript
 type Episode = {              //chaves para indicar objeto
@@ -33,6 +35,8 @@ type HomeProps = {
 // }
 
 export default function Home({lastVideos, allVideos}: HomeProps) {
+  const {play} = useContext(PlayerContext);
+
   return (
     <div className={style.homePage}>
       <section className={style.latestVideos}>
@@ -56,7 +60,7 @@ export default function Home({lastVideos, allVideos}: HomeProps) {
                   <span>{episode.publishedAt}</span>
                   <span>{episode.durationString}</span>
                 </div>
-                <button>
+                <button type='button' onClick={() => play(episode)}>
                   <img src='/play-green.svg' alt='Toca episodio'/>
                 </button>
               </li>
